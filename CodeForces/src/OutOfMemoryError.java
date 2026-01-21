@@ -20,28 +20,40 @@ public class OutOfMemoryError {
             h = Integer.parseInt(st.nextToken());
 
             st = new StringTokenizer(br.readLine());
-            long[] baseNums = new long[n];
-            for(int i = 0; i < n; i++){
-                baseNums[i] = Long.parseLong(st.nextToken());
-            }
-
+            long[] baseNums = new long[n]; for(int i = 0; i < n; i++){ baseNums[i] = Long.parseLong(st.nextToken());}
             long[] altered = Arrays.copyOf(baseNums, baseNums.length);
+            long[] last_element_update = new long[n]; for(int i = 0; i < last_element_update.length; i++){ last_element_update[i] = -1; }
 
+            int lastReset = -1;
+            int resetCount = 0;
             for(int opp = 0; opp < m; opp++){
                 st = new StringTokenizer(br.readLine());
 
                 int bi = Integer.parseInt(st.nextToken());
                 long ci = Long.parseLong(st.nextToken());
 
-                altered[bi - 1] += ci;
+                bi--;
 
-                if(altered[bi - 1] > h){
-                    altered = Arrays.copyOf(baseNums, baseNums.length); 
+                if(last_element_update[bi] < lastReset){
+                    altered[bi] = baseNums[bi];
                 }
+
+                altered[bi] += ci;
+
+                if(altered[bi] > h){
+                    lastReset = opp;
+                    resetCount++;
+                    altered[bi] = baseNums[bi];
+                }
+
+                last_element_update[bi] = opp;
             }
 
-            for(long val : altered){
-                pw.print(val + " ");
+            for(int i = 0; i < n; i++){
+                if(last_element_update[i] < lastReset){
+                    altered[i] = baseNums[i];
+                }
+                pw.print(altered[i] + " ");
             }
 
             pw.println();

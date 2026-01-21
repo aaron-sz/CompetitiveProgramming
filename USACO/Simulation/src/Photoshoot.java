@@ -18,7 +18,7 @@ public class Photoshoot {
 
         int[][] cows = new int[n][n];
 
-        // top left corner
+        // top left corners
         int[][] pics = new int[n][n];
 
         int maxSum = 0;
@@ -33,7 +33,7 @@ public class Photoshoot {
             c--;
 
             // calc what pics the new val is in.
-            int colStart = Math.max(c - k + 1, 0);
+            int colStart = Math.max(c - k + 1, 0); // make sure we not out of bounds
             int colEnd = Math.min(c, n - k);
 
             int rowStart = Math.max(0, r - k + 1);
@@ -43,7 +43,7 @@ public class Photoshoot {
 
             cows[r][c] = v;
 
-            for(int col = colStart; col <= colEnd; col++){
+            for(int col = colStart; col <= colEnd; col++){ 
                 for(int row = rowStart; row <= rowEnd; row++){
                     pics[row][col] += difference;
                     maxSum = Math.max(maxSum, pics[row][col]);
