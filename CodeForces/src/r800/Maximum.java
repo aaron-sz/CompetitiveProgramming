@@ -1,11 +1,12 @@
+package r800;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
+import java.util.Arrays;
 
-public class PickyCat {
+public class Maximum {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(System.out);
@@ -17,34 +18,24 @@ public class PickyCat {
             int n = Integer.parseInt(st.nextToken());
 
             st = new StringTokenizer(br.readLine());
-
-            if(n <= 2){
-                pw.println("YES");
-                continue;
-            }
-            
             int[] nums = new int[n];
-            int idx1 = Math.abs(Integer.parseInt(st.nextToken()));
-            nums[0] = idx1;
-
-            int numGreater = 0;
-            int numLess = 0;
-
-            for(int i = 1; i < n; i++){
-                nums[i] = Math.abs(Integer.parseInt(st.nextToken()));
-                if(nums[i] > idx1){
-                    numGreater++;
-                } else {
-                    numLess++;
-                }
+            for(int i = 0; i < n; i++){
+                nums[i] = Integer.parseInt(st.nextToken());
             }
 
-            if(numLess > (n / 2)){
-                pw.println("NO");
-            } else {
-                pw.println("YES");
+            int lowestK = Integer.MAX_VALUE;
+            for(int i = 0; i < n - 1; i++){
+                int current = nums[i];
+                int next = nums[i + 1];
+
+                int largest = Math.max(current, next);
+                int k = largest - 1;
+
+                lowestK = Math.min(lowestK, k);
             }
 
+            pw.println(lowestK);
+            
         }
 
         pw.close();
