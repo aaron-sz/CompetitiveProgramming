@@ -1,0 +1,4 @@
+# Ignore CodeForces .cph files (contest playback/save files)
+CodeForces/*.cph
+CodeForces/**/*.cph
+
